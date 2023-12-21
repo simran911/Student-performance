@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Exam Performance Indicator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f7f7f7;
+        }
+        .login {
+            max-width: 400px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        select, input[type="number"], input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        select:focus, input[type="number"]:focus, input[type="submit"]:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        input[type="submit"]:active {
+            background-color: #3e8948;
+        }
+        input[type="submit"]:hover, input[type="submit"]:active {
+            transform: scale(1.05);
+        }
+        .party-popper {
+            width: 100px;
+            height: 100px;
+            background: url('https://i.imgur.com/rQ3FQ3x.png') no-repeat;
+            background-size: cover;
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.5s ease, top 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="login">
+       <h1>Student Exam Performance Indicator</h1>
+   
+       <form action="{{ url_for('predict_datapoint')}}" method="post" id="examForm">
+        <h2>Student Exam Performance Prediction</h2>
+        <div class="mb-3">
+            <label>Gender</label>
+            <select name="gender" required>
+                <option selected disabled value="">Select your Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label>Race or Ethnicity</label>
+            <select name="ethnicity" required>
+                <option selected disabled value="">Select Ethnicity</option>
+                <option value="group A">Group A</option>
+                <option value="group B">Group B</option>
+                <option value="group C">Group C</option>
+                <option value="group D">Group D</option>
+                <option value="group E">Group E</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label>Parental Level of Education</label>
+            <select name="parental_level_of_education" required>
+                <option selected disabled value="">Select Parent Education</option>
+                <option value="associate's degree">associate's degree</option>
+                <option value="bachelor's degree">bachelor's degree</option>
+                <option value="high school">high school</option>
+                <option value="master's degree">master's degree</option>
+                <option value="some college">some college</option>
+                <option value="some high school">some high school</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label>Lunch Type</label>
+            <select name="lunch" required>
+                <option selected disabled value="">Select Lunch Type</option>
+                <option value="free/reduced">free/reduced</option>
+                <option value="standard">standard</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label>Test Preparation Course</label>
+            <select name="test_preparation_course" required>
+                <option selected disabled value="">Select Test Course</option>
+                <option value="none">None</option>
+                <option value="completed">Completed</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label>Writing Score out of 100</label>
+            <input type="number" name="writing_score" placeholder="Enter your Writing Score" min="0" max="100">
+        </div>
+        <div class="mb-3">
+            <label>Reading Score out of 100</label>
+            <input type="number" name="reading_score" placeholder="Enter your Reading score" min="0" max="100">
+        </div>
+        
+        <div class="mb-3">
+            <input type="submit" value="Predict your Exam Scores" onclick="partyPopper()">
+            <div class="party-popper" id="partyPopper"></div>
+        </div>
+    </form>
+    <h2>THE prediction is {{results}}</h2>
+   </div>
+   
+   <script>
+       function partyPopper() {
+           var popper = document.getElementById('partyPopper');
+           popper.style.opacity = '1';
+           popper.style.top = '50px'; // Adjust as needed
+           setTimeout(function() {
+               popper.style.opacity = '0';
+               popper.style.top = '-100px';
+           }, 2000); // Change duration as needed (in milliseconds)
+       }
+   </script>
+</body>
+</html>
