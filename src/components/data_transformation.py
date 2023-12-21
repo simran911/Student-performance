@@ -24,7 +24,7 @@ class DataTransformation:
 
     def get_data_transformer_object(self):
         '''
-        This function si responsible for data trnasformation
+        This function is responsible for data trnasformation
         
         '''
         try:
@@ -123,4 +123,4 @@ class DataTransformation:
         except Exception as e:
             raise CustomException(e,sys)
         
-        
+
